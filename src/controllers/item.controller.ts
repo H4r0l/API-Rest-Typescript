@@ -1,8 +1,11 @@
 import { Request, Response } from "express"
 import { handleHttp } from "../utils/error.handle"
+import { searchItem ,insertItem } from "../services/itemservice"
 
-const getItem = (req: Request, res: Response) => {
+const getItem = async (req: Request, res: Response) => {
     try {
+        const responseItem = await searchItem(req.params.id)
+        res.send(responseItem)
     } catch (e) {
         handleHttp(res, 'ERROR_GET_ITEM')
      }
@@ -22,11 +25,12 @@ const updateItem = (req: Request, res: Response) => {
      }
 
 }
-const postItem = ({ body }: Request, res: Response) => {
+const postItem = async ({ body }: Request, res: Response) => {
     try {
-        res.send(body)
+        const responseItem = await insertItem(body)
+        res.send(responseItem)
     } catch (e) {
-        handleHttp(res, 'ERROR_POST_ITEM')
+        handleHttp(res, 'ERROR_POST_ITEM', e)
      }
 
 }
