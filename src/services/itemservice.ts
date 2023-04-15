@@ -1,19 +1,30 @@
 import ItemModel from "../models/item"
 import { Car } from "../interfaces/car.interface";
 
-//Create a service that search the name of an item
 
-const searchItem = async (id: string) => {
-    const responseItem = await ItemModel.findById(id)
-    return responseItem
+const findItem = async (id: string) => {
+    const response = await ItemModel.findOne({_id:id});
+    return response
+}
+
+const findItems = async () => {
+    const response = await ItemModel.find({});
+    return response
 }
 
 const insertItem = async (item: Car) => {
-    const responseInsert = await ItemModel.create(item);
-    return responseInsert;
+    const responseItem = await ItemModel.create(item);
+    return responseItem;
 }
 
-export {
-    insertItem,
-    searchItem
-};
+const patchItem = async (id:string, data:Car ) => {
+    const responseItem = await ItemModel.findByIdAndUpdate({_id:id}, data, {new:true});
+    return responseItem
+}
+
+const removeItem = async (id: string) => { 
+    const responseItem = await ItemModel.findByIdAndDelete({_id:id});
+    return responseItem
+}
+
+export { findItems, findItem, insertItem, patchItem, removeItem };

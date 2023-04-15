@@ -13,5 +13,5 @@ app.use(cors({
 app.use(express.json())
 app.use(router)
 
-db().then(() => console.log("Connected succesfully"))
+db().then(() => console.log("Connected succesfully to database 🌟"))
 app.listen(PORT, () => console.log(`Listening on Port ${PORT}`))

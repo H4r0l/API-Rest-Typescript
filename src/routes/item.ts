@@ -4,9 +4,9 @@ import { deleteItem, getItem, getItems, postItem, updateItem } from '../controll
 const router = Router()
 
 router
-    .get('/', getItem)
+    .get('/', getItems)
 
-    .get('/:id', getItems)
+    .get('/:id', getItem)
 
     .post('/', postItem)
 
