@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import {
-    registerNewUser,
+    registerNew,
     loginUser
 } from "../services/authservice";
 import { handleHttp } from "../utils/error.handle";
 
 const registerCtrl = async (req: Request, res: Response) => {
     try {
-        const response = await registerNewUser(req.body);
+        const response = await registerNew(req.body);
+        res.send(response);
     } catch (e) {
         handleHttp(res, "ERROR_REGISTER");
+        console.log(e)
     }
 }
 

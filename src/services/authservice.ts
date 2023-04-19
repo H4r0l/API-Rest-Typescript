@@ -1,15 +1,19 @@
-import { Auth } from "../interfaces/auth.interface"
 import { User } from "../interfaces/user.interface";
-import userModel from "../models/user"
+import userModel from "../models/user";
+import { encrypt } from "../utils/bcrypt.handle";
 
-const registerNewUser = async ({email, password, name}: User) => {
-    const checkIs = await userModel.findOne({ email });
-    if (checkIs) return "USER_EXISTS";
-    const registerNew = await userModel.create({ email, password, name });
-    return registerNew
-}
+const registerNew = async ({ email, password, name }: User) => {
+  const checkIs = await userModel.findOne({ email });
+  if (checkIs) return "ALREADY_USER";
 
-const loginUser = async (req: Request, res: Response) => {
-    
-}
-export { registerNewUser, loginUser }
+  const passHash = await encrypt(password);
+  const registerNew = await userModel.create({
+    email,
+    password: passHash,
+    name,
+  });
+  return registerNew;
+};
+
+const loginUser = async (req: Request, res: Response) => {};
+export { registerNew, loginUser };
