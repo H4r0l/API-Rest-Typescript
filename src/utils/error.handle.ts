@@ -1,8 +1,13 @@
-import { Response } from 'express'
- 
-const handleHttp = (res: Response, error: string, errorRaw?: any) => {
-    console.log(errorRaw)
-    res.status(500)
-    res.send({ error })
-}
-export {handleHttp}
+import { Response } from "express";
+
+const handleHttp = (
+  res: Response,
+  error: string,
+  errorRaw?: any,
+  statusCode?: number
+) => {
+  console.log(errorRaw);
+  res.status(statusCode || 500);
+  res.send({ error });
+};
+export { handleHttp };

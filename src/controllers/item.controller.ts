@@ -14,7 +14,7 @@ const getItem = async (req: Request, res: Response) => {
     const data = response ? response : {"NOT_FOUND":true};
     res.send(data);
   } catch (e) {
-    handleHttp(res, "ERROR_GET_ITEM");
+    handleHttp(res, "ERROR_GET_ITEM", null, 404);
   }
 };
 const getItems = async (req: Request, res: Response) => {
@@ -22,7 +22,7 @@ const getItems = async (req: Request, res: Response) => {
     const response = await findItems();
     res.send(response);
   } catch (e) {
-    handleHttp(res, "ERROR_GET_ITEMS");
+    handleHttp(res, "ERROR_GET_ITEMS", null, 404);
   }
 };
 const updateItem = async (req: Request, res: Response) => {
@@ -30,7 +30,7 @@ const updateItem = async (req: Request, res: Response) => {
     const response = await patchItem(req.params.id, req.body);
     res.send(response);
   } catch (e) {
-    handleHttp(res, "ERROR_UPDATE_ITEM");
+    handleHttp(res, "ERROR_UPDATE_ITEM" , null, 409);
   }
 };
 const postItem = async ({ body }: Request, res: Response) => {
@@ -38,7 +38,7 @@ const postItem = async ({ body }: Request, res: Response) => {
     const response = await insertItem(body);
     res.send(response);
   } catch (e) {
-    handleHttp(res, "ERROR_POST_ITEM", e);
+    handleHttp(res, "ERROR_POST_ITEM", null, 409);
   }
 };
 const deleteItem = (req: Request, res: Response) => {
@@ -46,7 +46,7 @@ const deleteItem = (req: Request, res: Response) => {
     const response = removeItem(req.params.id);
     res.send(response);
   } catch (e) {
-    handleHttp(res, "ERROR_DELETE_ITEM");
+    handleHttp(res, "ERROR_DELETE_ITEM" , null, 400);
   }
 };
 
