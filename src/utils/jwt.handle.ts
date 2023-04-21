@@ -10,8 +10,9 @@ const generateToken = (id: string) => {
 }
 
 
-const verifyToken = async (token: string) => {
-    
+const verifyToken = (token: string) => {
+    const verified = verify(token, JWT_SECRET);
+    return verified;
 }
 
 export { generateToken, verifyToken }
